@@ -7,15 +7,13 @@ import javafx.stage.Stage;
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("Aplikacja");
+        primaryStage.setTitle("Grapher");
+        GUI gui = new GUI();
+        primaryStage.setScene(gui.getGuiScene());
         primaryStage.show();
     }
 
     public static void main(String[] args){
-        System.out.println("grapher_java");
-        Graf graf = new Graf(5,5,1,0,10);
-        graf.WypiszGraf();
-
         launch(args);
     }
 }
