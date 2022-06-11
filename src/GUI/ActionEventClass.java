@@ -69,8 +69,9 @@ public class ActionEventClass {
                     graf.setWagaDo(tmp);
                 }
 
-                graf.setWierzcholki();
-                graf.WypiszGraf();
+
+                graf.generujGraf();
+                graf.wypiszGraf();
             }
         });
     }
