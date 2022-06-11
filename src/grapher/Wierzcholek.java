@@ -1,8 +1,8 @@
 package grapher;
 
 public class Wierzcholek {
-    public double krawedz_prawo;
-    public double krawedz_dol;
+    private double krawedz_prawo;
+    private double krawedz_dol;
 
     public Wierzcholek (){
         krawedz_dol = -1.1;
@@ -24,6 +24,13 @@ public class Wierzcholek {
         this.krawedz_dol = krawedz_dol;
     }
 
+    public double getKrawedz_prawo() {
+        return krawedz_prawo;
+    }
+
+    public double getKrawedz_dol() {
+        return krawedz_dol;
+    }
 
     @Override
     public String toString() {
