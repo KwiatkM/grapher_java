@@ -1,11 +1,8 @@
 package GUI;
 
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
@@ -33,55 +30,73 @@ public class GUI {
 
         guiScene = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);
 
-        createWymiarXLabel(root);
-        createWymiarXTextField(root);
+        createLabels(root);
+        createTextFields(root);
+        createButtons(root);
 
-        createWymiarYLabel(root);
-        createWymiarYTextField(root);
-
-        createWagaOdLabel(root);
-        createWagaOdTextField(root);
-
-        createWagaDoLabel(root);
-        createWagaDoTextField(root);
-
-        createSzansaNaKrawedzLabel(root);
-        createSzansaNaKrawedzTextField(root);
 
 
         //...
 
 
 
+    }
+
+    private void createLabels(Pane root){
+        createWymiarXLabel(root);
+        createWymiarYLabel(root);
+        createWagaOdLabel(root);
+        createWagaDoLabel(root);
+        createSzansaNaKrawedzLabel(root);
+        createDlugoscOstatniejSciezkiLabel(root);
+        createCzyGrafSpojnyLabel(root);
+        createSkalaKolorowLabel(root);
+    }
+    private void createTextFields(Pane root){
+        createWymiarXTextField(root);
+        createWymiarYTextField(root);
+        createWagaOdTextField(root);
+        createWagaDoTextField(root);
+        createSzansaNaKrawedzTextField(root);
+        createDlugoscOstatniejSciezkiTextField(root);
+        createCzyGrafSpojnyTextField(root);
+    }
+    private void createButtons(Pane root){
+        createZapiszButton(root);
+        createWczytajButton(root);
+        createWymazSciezkiButton(root);
+        createUsunKrawedzieButton(root);
+        createWyjdzButton(root);
+
         createGenerujButton(root);
     }
 
     private Button createGenerujButton(Pane root){
-        Button generujButton = new Button("Generuj");
-        generujButton.setFont(new Font(12));
-        generujButton.setAlignment(Pos.CENTER);
-        generujButton.setPrefWidth(140);
-        generujButton.setPrefHeight(30);
-        generujButton.setLayoutX(130);
-        generujButton.setLayoutY(35);
-        root.getChildren().add(generujButton);
+        Button button = new Button("Generuj");
+        button.setFont(new Font(12));
+        button.setAlignment(Pos.CENTER);
+        button.setPrefWidth(140);
+        button.setPrefHeight(30);
+        button.setLayoutX(130);
+        button.setLayoutY(35);
+        root.getChildren().add(button);
 
         ActionEventClass actionEvent = new ActionEventClass();
-        actionEvent.setOnActionGenerujButton(generujButton, wymiarXTextField, wymiarYTextField, wagaOdTextField, wagaDoTextField, szansaNaKrawedzTextField);
+        actionEvent.setOnActionGenerujButton(button, wymiarXTextField, wymiarYTextField, wagaOdTextField, wagaDoTextField, szansaNaKrawedzTextField);
 
-        return generujButton;
+        return button;
     }
     private Label createWymiarXLabel(Pane root){
-        Label wymiarXLabel = new Label("Wymiar x");
-        wymiarXLabel.setFont(new Font(12));
-        wymiarXLabel.setAlignment(Pos.CENTER);
-        wymiarXLabel.setPrefWidth(50);
-        wymiarXLabel.setPrefHeight(25);
-        wymiarXLabel.setLayoutX(10);
-        wymiarXLabel.setLayoutY(90);
-        root.getChildren().add(wymiarXLabel);
+        Label label = new Label("Wymiar x");
+        label.setFont(new Font(12));
+        label.setAlignment(Pos.CENTER);
+        label.setPrefWidth(50);
+        label.setPrefHeight(25);
+        label.setLayoutX(10);
+        label.setLayoutY(90);
+        root.getChildren().add(label);
 
-        return wymiarXLabel;
+        return label;
     }
     private TextField createWymiarXTextField(Pane root){
         wymiarXTextField = new TextField();
@@ -96,16 +111,16 @@ public class GUI {
         return wymiarXTextField;
     }
     private Label createWymiarYLabel(Pane root){
-        Label wymiarYLabel = new Label("Wymiar y");
-        wymiarYLabel.setFont(new Font(12));
-        wymiarYLabel.setAlignment(Pos.CENTER);
-        wymiarYLabel.setPrefWidth(50);
-        wymiarYLabel.setPrefHeight(25);
-        wymiarYLabel.setLayoutX(10);
-        wymiarYLabel.setLayoutY(130);
-        root.getChildren().add(wymiarYLabel);
+        Label label = new Label("Wymiar y");
+        label.setFont(new Font(12));
+        label.setAlignment(Pos.CENTER);
+        label.setPrefWidth(50);
+        label.setPrefHeight(25);
+        label.setLayoutX(10);
+        label.setLayoutY(130);
+        root.getChildren().add(label);
 
-        return wymiarYLabel;
+        return label;
     }
     private TextField createWymiarYTextField(Pane root){
         wymiarYTextField = new TextField();
@@ -120,16 +135,16 @@ public class GUI {
         return wymiarYTextField;
     }
     private Label createWagaOdLabel(Pane root){
-        Label wagaOdLabel = new Label("Waga od");
-        wagaOdLabel.setFont(new Font(12));
-        wagaOdLabel.setAlignment(Pos.CENTER);
-        wagaOdLabel.setPrefWidth(50);
-        wagaOdLabel.setPrefHeight(25);
-        wagaOdLabel.setLayoutX(10);
-        wagaOdLabel.setLayoutY(170);
-        root.getChildren().add(wagaOdLabel);
+        Label label = new Label("Waga od");
+        label.setFont(new Font(12));
+        label.setAlignment(Pos.CENTER);
+        label.setPrefWidth(50);
+        label.setPrefHeight(25);
+        label.setLayoutX(10);
+        label.setLayoutY(170);
+        root.getChildren().add(label);
         
-        return wagaOdLabel;
+        return label;
     }
     private TextField createWagaOdTextField(Pane root){
         wagaOdTextField = new TextField();
@@ -145,16 +160,16 @@ public class GUI {
     }
     
     private Label createWagaDoLabel(Pane root){
-        Label wagaDoLabel = new Label("Waga do");
-        wagaDoLabel.setFont(new Font(12));
-        wagaDoLabel.setAlignment(Pos.CENTER);
-        wagaDoLabel.setPrefWidth(50);
-        wagaDoLabel.setPrefHeight(25);
-        wagaDoLabel.setLayoutX(10);
-        wagaDoLabel.setLayoutY(210);
-        root.getChildren().add(wagaDoLabel);
+        Label label = new Label("Waga do");
+        label.setFont(new Font(12));
+        label.setAlignment(Pos.CENTER);
+        label.setPrefWidth(50);
+        label.setPrefHeight(25);
+        label.setLayoutX(10);
+        label.setLayoutY(210);
+        root.getChildren().add(label);
 
-        return wagaDoLabel;
+        return label;
     }
     private TextField createWagaDoTextField(Pane root){
         wagaDoTextField = new TextField();
@@ -169,16 +184,16 @@ public class GUI {
         return wagaDoTextField;
     }
     private Label createSzansaNaKrawedzLabel(Pane root){
-        Label szansaNaKrawedzLabel = new Label("Szansa na krawedz");
-        szansaNaKrawedzLabel.setFont(new Font(12));
-        szansaNaKrawedzLabel.setAlignment(Pos.CENTER);
-        szansaNaKrawedzLabel.setPrefWidth(100);
-        szansaNaKrawedzLabel.setPrefHeight(25);
-        szansaNaKrawedzLabel.setLayoutX(10);
-        szansaNaKrawedzLabel.setLayoutY(250);
-        root.getChildren().add(szansaNaKrawedzLabel);
+        Label label = new Label("Szansa na krawedz");
+        label.setFont(new Font(12));
+        label.setAlignment(Pos.CENTER);
+        label.setPrefWidth(100);
+        label.setPrefHeight(25);
+        label.setLayoutX(10);
+        label.setLayoutY(250);
+        root.getChildren().add(label);
 
-        return szansaNaKrawedzLabel;
+        return label;
     }
     private TextField createSzansaNaKrawedzTextField(Pane root){
         szansaNaKrawedzTextField = new TextField();
@@ -191,6 +206,146 @@ public class GUI {
         root.getChildren().add(szansaNaKrawedzTextField);
 
         return szansaNaKrawedzTextField;
+    }
+    private Button createZapiszButton(Pane root){
+        Button button = new Button("Zapisz");
+        button.setFont(new Font(12));
+        button.setAlignment(Pos.CENTER);
+        button.setPrefWidth(140);
+        button.setPrefHeight(30);
+        button.setLayoutX(20);
+        button.setLayoutY(310);
+        root.getChildren().add(button);
+
+        ActionEventClass actionEvent = new ActionEventClass();
+        actionEvent.setOnActionZapiszButton(button);
+
+        return button;
+    }
+    private Button createWczytajButton(Pane root){
+        Button button = new Button("Wczytaj");
+        button.setFont(new Font(12));
+        button.setAlignment(Pos.CENTER);
+        button.setPrefWidth(140);
+        button.setPrefHeight(30);
+        button.setLayoutX(20);
+        button.setLayoutY(360);
+        root.getChildren().add(button);
+
+        ActionEventClass actionEvent = new ActionEventClass();
+        actionEvent.setOnActionWczytajButton(button);
+
+        return button;
+    }
+    private Button createWymazSciezkiButton(Pane root){
+        Button button = new Button("Wymaz sciezki");
+        button.setFont(new Font(12));
+        button.setAlignment(Pos.CENTER);
+        button.setPrefWidth(140);
+        button.setPrefHeight(30);
+        button.setLayoutX(180);
+        button.setLayoutY(310);
+        root.getChildren().add(button);
+
+        ActionEventClass actionEvent = new ActionEventClass();
+        actionEvent.setOnActionWymazSciezkiButton(button);
+
+        return button;
+    }
+    private Button createUsunKrawedzieButton(Pane root){
+        Button button = new Button("Usun krawedzie sciezki");
+        button.setFont(new Font(12));
+        button.setAlignment(Pos.CENTER);
+        button.setPrefWidth(140);
+        button.setPrefHeight(30);
+        button.setLayoutX(180);
+        button.setLayoutY(360);
+        root.getChildren().add(button);
+
+        ActionEventClass actionEvent = new ActionEventClass();
+        actionEvent.setOnActionUsunKrawedzieButton(button);
+
+        return button;
+    }
+    private Label createDlugoscOstatniejSciezkiLabel(Pane root){
+        Label label = new Label("Dlugosc ostatniej sziezki");
+        label.setFont(new Font(12));
+        label.setAlignment(Pos.CENTER);
+        label.setPrefWidth(140);
+        label.setPrefHeight(25);
+        label.setLayoutX(20);
+        label.setLayoutY(410);
+        root.getChildren().add(label);
+
+        return label;
+    }
+    private TextField createDlugoscOstatniejSciezkiTextField(Pane root){
+        TextField textField = new TextField();
+        textField.setFont(new Font(12));
+        textField.setAlignment(Pos.CENTER);
+        textField.setPrefWidth(140);
+        textField.setPrefHeight(25);
+        textField.setLayoutX(180);
+        textField.setLayoutY(410);
+        textField.setEditable(false);
+        root.getChildren().add(textField);
+
+        return textField;
+    }
+    private Label createCzyGrafSpojnyLabel(Pane root){
+        Label label = new Label("Czy graf spojny");
+        label.setFont(new Font(12));
+        label.setAlignment(Pos.CENTER);
+        label.setPrefWidth(140);
+        label.setPrefHeight(25);
+        label.setLayoutX(20);
+        label.setLayoutY(450);
+        root.getChildren().add(label);
+
+        return label;
+    }
+    private TextField createCzyGrafSpojnyTextField(Pane root){
+        TextField textField = new TextField();
+        textField.setFont(new Font(12));
+        textField.setAlignment(Pos.CENTER);
+        textField.setPrefWidth(140);
+        textField.setPrefHeight(25);
+        textField.setLayoutX(180);
+        textField.setLayoutY(450);
+        textField.setEditable(false);
+        root.getChildren().add(textField);
+
+        return textField;
+    }
+    private Label createSkalaKolorowLabel(Pane root){
+        Label label = new Label("Skala kolorow");
+        label.setFont(new Font(12));
+        label.setAlignment(Pos.CENTER);
+        label.setPrefWidth(80);
+        label.setPrefHeight(25);
+        label.setLayoutX(130);
+        label.setLayoutY(500);
+        root.getChildren().add(label);
+
+        return label;
+    }
+
+    //SKALA KOLOROW
+
+    private Button createWyjdzButton(Pane root){
+        Button button = new Button("Wyjdz");
+        button.setFont(new Font(12));
+        button.setAlignment(Pos.CENTER);
+        button.setPrefWidth(140);
+        button.setPrefHeight(30);
+        button.setLayoutX(20);
+        button.setLayoutY(630);
+        root.getChildren().add(button);
+
+        ActionEventClass actionEvent = new ActionEventClass();
+        actionEvent.setOnActionWyjdzButton(button);
+
+        return button;
     }
 
     public Scene getGuiScene(){

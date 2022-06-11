@@ -1,6 +1,7 @@
 package GUI;
 
 import grapher.Graf;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -44,7 +45,7 @@ public class ActionEventClass {
 
                 try {
                     if(Double.parseDouble(wagaDoTextField.getText()) < 0 || Double.parseDouble(wagaDoTextField.getText()) > 100){
-                        graf.setWagaDo(0);
+                        graf.setWagaDo(100);
                     } else {
                         graf.setWagaDo(Double.parseDouble(wagaDoTextField.getText()));
                     }
@@ -70,6 +71,41 @@ public class ActionEventClass {
 
                 graf.setWierzcholki();
                 graf.WypiszGraf();
+            }
+        });
+    }
+    public void setOnActionZapiszButton(Button zapiszButton){
+        zapiszButton.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e) {
+
+            }
+        });
+    }
+    public void setOnActionWczytajButton(Button wczytajButton){
+        wczytajButton.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e) {
+
+            }
+        });
+    }
+    public void setOnActionWymazSciezkiButton(Button wymazSciezkiButton){
+        wymazSciezkiButton.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e) {
+
+            }
+        });
+    }
+    public void setOnActionUsunKrawedzieButton(Button usunKrawedzieButton){
+        usunKrawedzieButton.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e) {
+
+            }
+        });
+    }
+    public void setOnActionWyjdzButton(Button wyjdzButton){
+        wyjdzButton.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e) {
+                Platform.exit();
             }
         });
     }
