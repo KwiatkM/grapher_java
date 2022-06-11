@@ -4,15 +4,21 @@ import grapher.Graf;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class ActionEventClass {
+    static Graf graf;
+    static boolean czyWygenerowanyLubWczytanyGraf = false;
     public void setOnActionGenerujButton(Button generujButton, TextField wymiarXTextField, TextField wymiarYTextField, TextField wagaOdTextField, TextField wagaDoTextField, TextField szansaNaKrawedzTextField){
         generujButton.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
-                System.out.println("GenerujButtonClicked");
-                Graf graf = new Graf();
+                graf = new Graf();
                 try {
                     if(Integer.parseInt(wymiarXTextField.getText()) <= 0){
                         graf.setWymiarX(100);
@@ -71,6 +77,8 @@ public class ActionEventClass {
 
 
                 graf.generujGraf();
+                czyWygenerowanyLubWczytanyGraf = true;
+                System.out.println("Wygenerowano graf.");
                 graf.wypiszGraf();
             }
         });
@@ -78,14 +86,61 @@ public class ActionEventClass {
     public void setOnActionZapiszButton(Button zapiszButton){
         zapiszButton.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
+                if(czyWygenerowanyLubWczytanyGraf) {
+                    FileChooser fileChooser = new FileChooser();
+                    fileChooser.setTitle("Zapisywanie jako");
+                    fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Dokumenty tekstowe", "*.txt"));
 
+                    String userDirectoryString = System.getProperty("user.dir");
+
+                    File userDirectory = new File(userDirectoryString);
+                    if(!userDirectory.canRead()) {
+                        userDirectory = new File("c:/");
+                    }
+                    fileChooser.setInitialDirectory(userDirectory);
+
+                    File file = fileChooser.showOpenDialog(Main.stage);
+                    if (file != null) {
+                        try {
+                            graf.zapiszDoPliku(file.getAbsolutePath());
+                            System.out.println("Graf zostal zapisany do pliku " + file.getAbsolutePath());
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                    }
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setContentText("Przed zapisaniem grafu nalezy go wygenerowac lub wczytac.");
+                    alert.show();
+                }
             }
         });
     }
     public void setOnActionWczytajButton(Button wczytajButton){
         wczytajButton.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
+                FileChooser fileChooser = new FileChooser();
+                fileChooser.setTitle("Wczytaj jako");
+                fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Dokumenty tekstowe", "*.txt"));
 
+                String userDirectoryString = System.getProperty("user.dir");
+
+                File userDirectory = new File(userDirectoryString);
+                if(!userDirectory.canRead()) {
+                    userDirectory = new File("c:/");
+                }
+                fileChooser.setInitialDirectory(userDirectory);
+
+                File file = fileChooser.showOpenDialog(Main.stage);
+                if (file != null) {
+                    try {
+                        graf = new Graf(file.getAbsolutePath());
+                        czyWygenerowanyLubWczytanyGraf = true;
+                        System.out.println("Graf zostal wczytany z pliku " + file.getAbsolutePath());
+                    } catch (FileNotFoundException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                }
             }
         });
     }
