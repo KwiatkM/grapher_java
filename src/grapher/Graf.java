@@ -16,30 +16,43 @@ public class Graf  {
     private double wagaOd;
     private double wagaDo;
 
-    private boolean jestKrawedzGora(int nrWierzcholka){
+    public boolean jestKrawedzGora(int nrWierzcholka){
         return nrWierzcholka - wymiarY >= 0;
     }
-    private boolean jestKrawedzPrawo(int nrWierzcholka){
+    public boolean jestKrawedzPrawo(int nrWierzcholka){
         return (nrWierzcholka + 1)% wymiarY != 0;
     }
-    private boolean jestKrawedzDol(int nrWierzcholka){
+    public boolean jestKrawedzDol(int nrWierzcholka){
         return nrWierzcholka < (wymiarY * wymiarX) - wymiarY;
     }
-    private boolean jestKrawedzLewo(int nrWierzcholka){
+    public boolean jestKrawedzLewo(int nrWierzcholka){
         return nrWierzcholka % wymiarY != 0;
     }
 
-    private int nrIndeksuGora(int nrWierzcholka){
+    public int nrIndeksuGora(int nrWierzcholka){
         return nrWierzcholka - wymiarY;
     }
-    private int nrIndeksuPrawo(int nrWierzcholka){
+    public int nrIndeksuPrawo(int nrWierzcholka){
         return nrWierzcholka +1;
     }
-    private int nrIndeksuDol(int nrWierzcholka){
+    public int nrIndeksuDol(int nrWierzcholka){
         return nrWierzcholka + wymiarY;
     }
-    private int nrIndeksuLewo(int nrWierzcholka){
+    public int nrIndeksuLewo(int nrWierzcholka){
         return nrWierzcholka - 1;
+    }
+
+    public double getWagaKrawedziGora(int nrWierzcholka){
+        return wierzcholki[nrIndeksuGora(nrWierzcholka)].getKrawedz_dol();
+    }
+    public double getWagaKrawedziPrawo(int nrWierzcholka){
+        return wierzcholki[nrWierzcholka].getKrawedz_prawo();
+    }
+    public double getWagaKrawedziDol(int nrWierzcholka){
+        return wierzcholki[nrWierzcholka].getKrawedz_dol();
+    }
+    public double getWagaKrawedziLewo(int nrWierzcholka){
+        return wierzcholki[nrIndeksuLewo(nrWierzcholka)].getKrawedz_prawo();
     }
 
     private void inicjalizajaGrafu(){
@@ -52,7 +65,7 @@ public class Graf  {
 
     }
 
-/*
+
     public Graf(int X, int Y, double szansaNaKrawedz, double wagaOd, double wagaDo){
         wymiarX = X;
         wymiarY = Y;
@@ -62,7 +75,7 @@ public class Graf  {
         inicjalizajaGrafu();
         generujKrawedzie();
     }
-    */
+
 
     public Graf (String sciezkaDoPliku) throws FileNotFoundException {
         File plik = new File(sciezkaDoPliku);
@@ -175,5 +188,17 @@ public class Graf  {
 
     public double getWagaDo() {
         return wagaDo;
+    }
+
+    public Wierzcholek[] getWierzcholki() {
+        return wierzcholki;
+    }
+
+    public int getWymiarX() {
+        return wymiarX;
+    }
+
+    public int getWymiarY() {
+        return wymiarY;
     }
 }
