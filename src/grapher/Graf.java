@@ -48,7 +48,11 @@ public class Graf  {
             wierzcholki[i] = new Wierzcholek();
         }
     }
+    public Graf(){
 
+    }
+
+/*
     public Graf(int X, int Y, double szansaNaKrawedz, double wagaOd, double wagaDo){
         wymiarX = X;
         wymiarY = Y;
@@ -58,7 +62,7 @@ public class Graf  {
         inicjalizajaGrafu();
         generujKrawedzie();
     }
-
+    */
 
     public Graf (String sciezkaDoPliku) throws FileNotFoundException {
         File plik = new File(sciezkaDoPliku);
@@ -97,6 +101,11 @@ public class Graf  {
                 }*/
             }
         }
+    }
+
+    public void generujGraf(){
+        inicjalizajaGrafu();
+        generujKrawedzie();
     }
 
     private void generujKrawedzie(){
@@ -140,8 +149,31 @@ public class Graf  {
         }
     }
 
+    public void setWymiarX(int wymiarX) {
+        this.wymiarX = wymiarX;
+    }
 
+    public void setWymiarY(int wymiarY) {
+        this.wymiarY = wymiarY;
+    }
 
+    public void setSzansaNaKrawedz(double szansaNaKrawedz) {
+        this.szansaNaKrawedz = szansaNaKrawedz;
+    }
 
+    public void setWagaOd(double wagaOd) {
+        this.wagaOd = wagaOd;
+    }
 
+    public void setWagaDo(double wagaDo) {
+        this.wagaDo = wagaDo;
+    }
+
+    public double getWagaOd() {
+        return wagaOd;
+    }
+
+    public double getWagaDo() {
+        return wagaDo;
+    }
 }

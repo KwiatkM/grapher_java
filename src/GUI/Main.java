@@ -1,17 +1,19 @@
 package GUI;
 
 import grapher.Graf;
+import javafx.application.Application;
+import javafx.stage.Stage;
 
-import java.io.IOException;
+public class Main extends Application {
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        primaryStage.setTitle("Grapher");
+        GUI gui = new GUI();
+        primaryStage.setScene(gui.getGuiScene());
+        primaryStage.show();
+    }
 
-public class Main {
-
-    public static void main( String[] args) throws IOException {
-        System.out.println("grapher_java");
-        Graf graf = new Graf(5,6,1,0,10);
-        //Graf graf1 = new Graf("PlikTestowy");
-        //graf.wypiszGraf();
-        //graf.zapiszDoPliku("PlikTestowy");
-        graf.wypiszGraf();
+    public static void main(String[] args){
+        launch(args);
     }
 }
