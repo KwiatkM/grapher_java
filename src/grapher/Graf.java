@@ -21,11 +21,22 @@ public class Graf  {
 
         wierzcholki = new Wierzcholek[wymiarX * wymiarY];
         for(int i = 0; i < wymiarY * wymiarX; i++){
-            wierzcholki[i] = new Wierzcholek(wagaOd, wagaDo);
+            wierzcholki[i] = new Wierzcholek();
         }
     }
 
-    public void WypiszGraf(){
+    public void generujKrawedzie(){
+        for(int i = 0; i < wymiarY * wymiarX; i++){
+            if((Math.random() < szansaNaKrawedz) && ((i+1)%wymiarY != 0 )){
+                wierzcholki[i].setKrawedz_prawo(Math.random() * (wagaDo - wagaOd) + wagaDo);
+            }
+            if((Math.random() < szansaNaKrawedz) && (i < (wymiarY * wymiarX) - wymiarY)){
+                wierzcholki[i].setKrawedz_dol(Math.random() * (wagaDo - wagaOd) + wagaDo);
+            }
+        }
+    }
+
+    public void wypiszGraf(){
         for (int i = 0; i < wymiarY * wymiarX; i++){
             System.out.println((i+1) + ": " + wierzcholki[i].toString());
         }
