@@ -55,6 +55,12 @@ public class Graf  {
         return wierzcholki[nrIndeksuLewo(nrWierzcholka)].getKrawedz_prawo();
     }
 
+    public void usunKrawedzieWierzcholka(int nrWierzcholka){
+        wierzcholki[nrWierzcholka].setKrawedzie(-1.1,-1.1);
+        if(jestKrawedzGora(nrWierzcholka)) {wierzcholki[nrIndeksuGora(nrWierzcholka)].setKrawedz_dol(-1.1);}
+        if(jestKrawedzLewo(nrWierzcholka)) {wierzcholki[nrIndeksuLewo(nrWierzcholka)].setKrawedz_prawo(-1.1);}
+    }
+
     private void inicjalizajaGrafu(){
         wierzcholki = new Wierzcholek[wymiarX * wymiarY];
         for(int i = 0; i < wymiarY * wymiarX; i++){
@@ -158,7 +164,7 @@ public class Graf  {
 
     public void wypiszGraf(){
         for (int i = 0; i < wymiarY * wymiarX; i++){
-            System.out.println((i+1) + ": " + wierzcholki[i].toString());
+            System.out.println((i) + ": " + wierzcholki[i].toString());
         }
     }
 
