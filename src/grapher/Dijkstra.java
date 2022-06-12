@@ -118,6 +118,12 @@ public class Dijkstra {
         return sciezka;
     }
 
+    public void usunSciezke( ArrayList<Integer> sciezka){
+        for(int i : sciezka){
+        graf.usunKrawedzieWierzcholka(i);
+        }
+    }
+
 
     public void wypiszTablice(){
         for (int i = 0; i < iloscWierzcholkow; i++){
