@@ -1,5 +1,6 @@
 package GUI;
 
+import grapher.BFS;
 import grapher.Graf;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -8,6 +9,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -15,7 +17,7 @@ import java.io.IOException;
 public class ActionEventClass {
     static Graf graf;
     static boolean czyWygenerowanyLubWczytanyGraf = false;
-    public void setOnActionGenerujButton(Button generujButton, TextField wymiarXTextField, TextField wymiarYTextField, TextField wagaOdTextField, TextField wagaDoTextField, TextField szansaNaKrawedzTextField){
+    public void setOnActionGenerujButton(Button generujButton, TextField wymiarXTextField, TextField wymiarYTextField, TextField wagaOdTextField, TextField wagaDoTextField, TextField szansaNaKrawedzTextField, TextField czyGrafSpojnyTextField, TextField dlugoscSciezkiTextField){
         generujButton.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
                 graf = new Graf();
@@ -75,9 +77,16 @@ public class ActionEventClass {
                     graf.setWagaDo(tmp);
                 }
 
-
                 graf.generujGraf();
+                GUI.initializeWidokGrafu();             //do siatki grafu
                 czyWygenerowanyLubWczytanyGraf = true;
+                BFS bfs = new BFS(graf);
+                if(bfs.grafSpojny()){
+                    czyGrafSpojnyTextField.setText("Tak");
+                } else{
+                    czyGrafSpojnyTextField.setText("Nie");
+                }
+
                 System.out.println("Wygenerowano graf.");
                 graf.wypiszGraf();
             }
@@ -116,7 +125,7 @@ public class ActionEventClass {
             }
         });
     }
-    public void setOnActionWczytajButton(Button wczytajButton){
+    public void setOnActionWczytajButton(Button wczytajButton, TextField czyGrafSpojnyTextField, TextField dlugoscSciezkiTextField){
         wczytajButton.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
                 FileChooser fileChooser = new FileChooser();
@@ -135,7 +144,14 @@ public class ActionEventClass {
                 if (file != null) {
                     try {
                         graf = new Graf(file.getAbsolutePath());
+                        //GUI.initializeWidokGrafu();                     //do siatki grafu
                         czyWygenerowanyLubWczytanyGraf = true;
+                        BFS bfs = new BFS(graf);
+                        if(bfs.grafSpojny()){
+                            czyGrafSpojnyTextField.setText("Tak");
+                        } else{
+                            czyGrafSpojnyTextField.setText("Nie");
+                        }
                         System.out.println("Graf zostal wczytany z pliku " + file.getAbsolutePath());
                     } catch (FileNotFoundException ex) {
                         throw new RuntimeException(ex);
