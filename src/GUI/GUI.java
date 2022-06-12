@@ -1,6 +1,7 @@
 package GUI;
 
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
@@ -8,15 +9,19 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 
 public class GUI {
-    private Scene guiScene;
+    private static Scene guiScene;
     private TextField wymiarXTextField;
     private TextField wymiarYTextField;
     private TextField wagaOdTextField;
     private TextField wagaDoTextField;
     private TextField szansaNaKrawedzTextField;
+    private TextField czyGrafSpojnyTextField;
+    private TextField dlugoscSciezkiTextField;
 
-    ScrollPane widokGrafu;          //jeszcze nie uzywane
-    GridPane siatkaWierzcholkow;        //jeszcze nie uzywane
+    private static Pane root;
+
+    private static ScrollPane widokGrafu;              // do siatki grafu
+    private static GridPane siatkaWierzcholkow;        // do siatki grafu
 
     private final static double SCENE_WIDTH = 950;
     private final static double SCENE_HEIGHT = 700;
@@ -26,7 +31,7 @@ public class GUI {
     }
 
     private void initializeScene(){
-        Pane root = new Pane();
+        root = new Pane();
 
         guiScene = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);
 
@@ -35,11 +40,7 @@ public class GUI {
         createButtons(root);
 
 
-
         //...
-
-
-
     }
 
     private void createLabels(Pane root){
@@ -71,6 +72,34 @@ public class GUI {
         createGenerujButton(root);
     }
 
+    static void initializeWidokGrafu(){             //do siatki grafu(uruchamiane w ActionEventClass
+        siatkaWierzcholkow = new GridPane();        //po wygenerowaniu lub wczytaniu grafu)
+        initializeSiatkaWierzcholkow();
+        widokGrafu = initializeScrollPane(siatkaWierzcholkow);
+        root.getChildren().add(widokGrafu);
+        root.getChildren().add(siatkaWierzcholkow);
+
+        Main.stage.setScene(guiScene);
+    }
+    private static ScrollPane initializeScrollPane(Node node){      //do siatki grafu
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setPrefWidth(590);
+        scrollPane.setPrefHeight(670);
+        scrollPane.setLayoutX(340);
+        scrollPane.setLayoutY(20);
+        //scrollPane.setContent(node);
+
+        return scrollPane;
+    }
+    private static void initializeSiatkaWierzcholkow(){             //do siatki grafu
+        siatkaWierzcholkow.getChildren().clear();
+        //siatkaWierzcholkow.getColumnConstraints().clear();
+        //siatkaWierzcholkow.prefWidthProperty().bind(widokGrafu.widthProperty());
+        //siatkaWierzcholkow.prefHeightProperty().bind(widokGrafu.heightProperty());
+        //...  <---  ustawienie wierzcholkow wraz z krawedziami  w GridPane'ie
+
+    }
+
     private Button createGenerujButton(Pane root){
         Button button = new Button("Generuj");
         button.setFont(new Font(12));
@@ -82,7 +111,7 @@ public class GUI {
         root.getChildren().add(button);
 
         ActionEventClass actionEvent = new ActionEventClass();
-        actionEvent.setOnActionGenerujButton(button, wymiarXTextField, wymiarYTextField, wagaOdTextField, wagaDoTextField, szansaNaKrawedzTextField);
+        actionEvent.setOnActionGenerujButton(button, wymiarXTextField, wymiarYTextField, wagaOdTextField, wagaDoTextField, szansaNaKrawedzTextField, czyGrafSpojnyTextField, dlugoscSciezkiTextField);
 
         return button;
     }
@@ -233,7 +262,7 @@ public class GUI {
         root.getChildren().add(button);
 
         ActionEventClass actionEvent = new ActionEventClass();
-        actionEvent.setOnActionWczytajButton(button);
+        actionEvent.setOnActionWczytajButton(button, czyGrafSpojnyTextField, dlugoscSciezkiTextField);
 
         return button;
     }
@@ -280,17 +309,17 @@ public class GUI {
         return label;
     }
     private TextField createDlugoscOstatniejSciezkiTextField(Pane root){
-        TextField textField = new TextField();
-        textField.setFont(new Font(12));
-        textField.setAlignment(Pos.CENTER);
-        textField.setPrefWidth(140);
-        textField.setPrefHeight(25);
-        textField.setLayoutX(180);
-        textField.setLayoutY(410);
-        textField.setEditable(false);
-        root.getChildren().add(textField);
+        dlugoscSciezkiTextField = new TextField();
+        dlugoscSciezkiTextField.setFont(new Font(12));
+        dlugoscSciezkiTextField.setAlignment(Pos.CENTER);
+        dlugoscSciezkiTextField.setPrefWidth(140);
+        dlugoscSciezkiTextField.setPrefHeight(25);
+        dlugoscSciezkiTextField.setLayoutX(180);
+        dlugoscSciezkiTextField.setLayoutY(410);
+        dlugoscSciezkiTextField.setEditable(false);
+        root.getChildren().add(dlugoscSciezkiTextField);
 
-        return textField;
+        return dlugoscSciezkiTextField;
     }
     private Label createCzyGrafSpojnyLabel(Pane root){
         Label label = new Label("Czy graf spojny");
@@ -305,17 +334,17 @@ public class GUI {
         return label;
     }
     private TextField createCzyGrafSpojnyTextField(Pane root){
-        TextField textField = new TextField();
-        textField.setFont(new Font(12));
-        textField.setAlignment(Pos.CENTER);
-        textField.setPrefWidth(140);
-        textField.setPrefHeight(25);
-        textField.setLayoutX(180);
-        textField.setLayoutY(450);
-        textField.setEditable(false);
-        root.getChildren().add(textField);
+        czyGrafSpojnyTextField = new TextField();
+        czyGrafSpojnyTextField.setFont(new Font(12));
+        czyGrafSpojnyTextField.setAlignment(Pos.CENTER);
+        czyGrafSpojnyTextField.setPrefWidth(140);
+        czyGrafSpojnyTextField.setPrefHeight(25);
+        czyGrafSpojnyTextField.setLayoutX(180);
+        czyGrafSpojnyTextField.setLayoutY(450);
+        czyGrafSpojnyTextField.setEditable(false);
+        root.getChildren().add(czyGrafSpojnyTextField);
 
-        return textField;
+        return czyGrafSpojnyTextField;
     }
     private Label createSkalaKolorowLabel(Pane root){
         Label label = new Label("Skala kolorow");
