@@ -85,9 +85,12 @@ public class GUI {
         widokGrafu = initializeScrollPane();
         double skala = 1.0;
         if(graf.getWymiarX() > 16|| graf.getWymiarY() > 16) skala = 0.8;
-        if(graf.getWymiarX() > 30|| graf.getWymiarY() > 30) skala = 0.6;
-        if(graf.getWymiarX() > 40|| graf.getWymiarY() > 40) skala = 0.5;
-        if(graf.getWymiarX() > 50|| graf.getWymiarY() > 50) skala = 0.4;
+        if(graf.getWymiarX() > 30|| graf.getWymiarY() > 30) skala = 0.5;
+        if(graf.getWymiarX() > 40|| graf.getWymiarY() > 40) skala = 0.45;
+        if(graf.getWymiarX() > 50|| graf.getWymiarY() > 50) skala = 0.35;
+        if(graf.getWymiarX() > 60|| graf.getWymiarY() > 60) skala = 0.3;
+        if(graf.getWymiarX() > 70|| graf.getWymiarY() > 70) skala = 0.35;
+        if(graf.getWymiarX() > 99|| graf.getWymiarY() > 99) skala = 0.2;
         CanvasGraf c = new CanvasGraf(graf,skala);
         widokGrafu.setContent(c.getCanvas());
         root.getChildren().add(widokGrafu);
@@ -105,12 +108,8 @@ public class GUI {
 
         return scrollPane;
     }
-    private static void initializeSiatkaWierzcholkow(){             //do siatki grafu
+    private static void initializeSiatkaWierzcholkow(){
         siatkaWierzcholkow.getChildren().clear();
-        //siatkaWierzcholkow.getColumnConstraints().clear();
-        //siatkaWierzcholkow.prefWidthProperty().bind(widokGrafu.widthProperty());
-        //siatkaWierzcholkow.prefHeightProperty().bind(widokGrafu.heightProperty());
-        //...  <---  ustawienie wierzcholkow wraz z krawedziami  w GridPane'ie
 
     }
 

@@ -7,8 +7,6 @@ public class Wierzcholek {
     public Wierzcholek (){
         krawedz_dol = -1.1;
         krawedz_prawo = -1.1;
-        //krawedz_dol = Math.random() * (waga_do - waga_od) + waga_od;
-        //krawedz_prawo = Math.random() * (waga_do - waga_od) + waga_od;
     }
 
     public void setKrawedzie (double prawo, double dol){

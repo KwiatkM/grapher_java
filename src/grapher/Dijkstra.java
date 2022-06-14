@@ -116,7 +116,7 @@ public class Dijkstra {
     }
 
 
-    // metoda zwraca najkrótszą ścieżkę do wierzchołka "wierzchołekDocelowy" w postaci ArrayList
+    // metoda zwraca najkrótszą ścieżkę od wierzchołka startowego do wierzchołka "wierzchołekDocelowy" w postaci ArrayList
     public ArrayList<Integer> znajdzNajkrotszaSciezke (int wierzholekDocelowy){
         ArrayList<Integer> sciezka = new ArrayList<>();
         int aktualnyWierzcholek = wierzholekDocelowy;

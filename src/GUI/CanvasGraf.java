@@ -48,7 +48,7 @@ public class CanvasGraf {
         scale = skala;
         d = 30*scale; // średnica kółka
         odstep = d/3; // odstęp między kółkami
-        szerokoscKrawedzi = odstep/2;
+        szerokoscKrawedzi = d/4;
         canvasSizeX = graf.getWymiarX() * (d+odstep) + odstep; // rozmiar X płutna
         canvasSizeY = graf.getWymiarY() * (d+odstep) + odstep; // rozmiar Y płutna
         canvas = new Canvas(canvasSizeY,canvasSizeX);
@@ -184,7 +184,6 @@ public class CanvasGraf {
         }
 
         // rysowanie krawędzi pionowych
-        //gc.setFill(Color.RED);
         xPos = odstep + d/2;
         yPos = odstep + d/2 - szerokoscKrawedzi/2;
         for(int y = 0; y < graf.getWymiarY(); y++){
@@ -235,7 +234,7 @@ public class CanvasGraf {
         double RectXstart;
         double RextYstart;
        for(int i = 0; i < currentPath.size()-1 ;i++){
-           gc.setFill(Color.DARKGRAY);
+           gc.setFill(Color.rgb(74 ,16,80));
            if(currentPath.get(i+1) == graf.nrIndeksuGora(currentPath.get(i))){
                gc.fillOval(wspKolX - szerokoscKrawedzi/2, wspKolY - szerokoscKrawedzi/2,szerokoscKrawedzi,szerokoscKrawedzi);
                RectXstart = wspKolX - szerokoscKrawedzi/2;
@@ -275,9 +274,6 @@ public class CanvasGraf {
     }
 
 
-
-
-
     public void fullRedraw(){
         nodeSelected = false;
         draw();
@@ -285,13 +281,13 @@ public class CanvasGraf {
 
     public void redraw(){
         draw(dijkstra);
-        // pomalowanie głównego wierzchołka spowrotem na odpowiedni kolor
 
-        // współrzędne nr wierzchołka w grafie
+        // pomalowanie głównego wierzchołka spowrotem na odpowiedni kolor
+            // współrzędne nr wierzchołka w grafie
         int wspGrX = (int) mainNodeNumber/graphYsize;;
         int wspGrY = mainNodeNumber - (wspGrX * graphYsize);
 
-        // współrzędne lewego górnego rogu kwadratu na płutnie dla danego wierzchołka
+            // współrzędne lewego górnego rogu kwadratu na płutnie dla danego głównego wierzchołka
         double mainNx = (wspGrY + 1) * odstep + wspGrY * d;
         double mainNy = (wspGrX + 1) * odstep + wspGrX * d;
 

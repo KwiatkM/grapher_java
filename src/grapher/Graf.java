@@ -2,10 +2,7 @@ package grapher;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Scanner;
-import java.util.Spliterator;
-import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -103,15 +100,10 @@ public class Graf  {
 
         String tmp;
         for ( int i = 0; i < wymiarY*wymiarX; i++){
-            //System.out.println("Wczytuje wierzcholek nr " + (i+1));
             tmp = scanner.nextLine();
             matcher =pattern.matcher(tmp);
             double dTmp;
             while(matcher.find()){
-                /*if(Integer.parseInt(matcher.group(1)) == nrIndeksuGora(i)){
-                    wierzcholki[nrIndeksuGora(i)].setKrawedz_dol(Double.parseDouble(matcher.group(2)));
-                    continue;
-                }*/
                 if(Integer.parseInt(matcher.group(1)) == nrIndeksuPrawo(i)){
                     dTmp = Double.parseDouble(matcher.group(2));
                     wierzcholki[i].setKrawedz_prawo(dTmp);
@@ -126,10 +118,6 @@ public class Graf  {
                     if(dTmp < wagaMin) wagaMin = dTmp;
                     continue;
                 }
-                /*if(Integer.parseInt(matcher.group(1)) == nrIndeksuLewo(i)){
-                    wierzcholki[nrIndeksuLewo(i)].setKrawedz_prawo(Double.parseDouble(matcher.group(2)));
-
-                }*/
             }
         }
         wagaOd = wagaMin;
