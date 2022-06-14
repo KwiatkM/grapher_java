@@ -19,7 +19,7 @@ public class ActionEventClass {
     static CanvasGraf canvas;
     static BFS bfs;
     static boolean czyWygenerowanyLubWczytanyGraf = false;
-    public void setOnActionGenerujButton(Button generujButton, TextField wymiarXTextField, TextField wymiarYTextField, TextField wagaOdTextField, TextField wagaDoTextField, TextField szansaNaKrawedzTextField, TextField czyGrafSpojnyTextField, TextField dlugoscSciezkiTextField){
+    public void setOnActionGenerujButton(Button generujButton, TextField wymiarXTextField, TextField wymiarYTextField, TextField wagaOdTextField, TextField wagaDoTextField, TextField szansaNaKrawedzTextField, TextField czyGrafSpojnyTextField){
         generujButton.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
                 graf = new Graf();
@@ -121,7 +121,7 @@ public class ActionEventClass {
             }
         });
     }
-    public void setOnActionWczytajButton(Button wczytajButton, TextField czyGrafSpojnyTextField, TextField dlugoscSciezkiTextField){
+    public void setOnActionWczytajButton(Button wczytajButton, TextField czyGrafSpojnyTextField){
         wczytajButton.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
                 FileChooser fileChooser = new FileChooser();
@@ -140,8 +140,7 @@ public class ActionEventClass {
                 if (file != null) {
                     try {
                         graf = new Graf(file.getAbsolutePath());
-                        //bfs.start();
-                        //GUI.initializeWidokGrafu();                     //do siatki grafu
+                        System.out.println("Graf zostal wczytany z pliku " + file.getAbsolutePath());
                         canvas = GUI.initializeWidokGrafu(graf);             //do siatki grafu
                         czyWygenerowanyLubWczytanyGraf = true;
                         bfs = new BFS(graf);

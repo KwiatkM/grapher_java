@@ -2,12 +2,10 @@ package GUI;
 
 import grapher.Graf;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -28,7 +26,6 @@ public class GUI {
     private static Pane root;
 
     private static ScrollPane widokGrafu;              // do siatki grafu
-    private static GridPane siatkaWierzcholkow;        // do siatki grafu
 
     private final static double SCENE_WIDTH = 950;
     private final static double SCENE_HEIGHT = 700;
@@ -45,9 +42,6 @@ public class GUI {
         createLabels(root);
         createTextFields(root);
         createButtons(root);
-
-
-        //...
     }
 
     private void createLabels(Pane root){
@@ -105,14 +99,6 @@ public class GUI {
 
         return scrollPane;
     }
-    private static void initializeSiatkaWierzcholkow(){             //do siatki grafu
-        siatkaWierzcholkow.getChildren().clear();
-        //siatkaWierzcholkow.getColumnConstraints().clear();
-        //siatkaWierzcholkow.prefWidthProperty().bind(widokGrafu.widthProperty());
-        //siatkaWierzcholkow.prefHeightProperty().bind(widokGrafu.heightProperty());
-        //...  <---  ustawienie wierzcholkow wraz z krawedziami  w GridPane'ie
-
-    }
 
     private Button createGenerujButton(Pane root){
         Button button = new Button("Generuj");
@@ -125,7 +111,7 @@ public class GUI {
         root.getChildren().add(button);
 
         ActionEventClass actionEvent = new ActionEventClass();
-        actionEvent.setOnActionGenerujButton(button, wymiarXTextField, wymiarYTextField, wagaOdTextField, wagaDoTextField, szansaNaKrawedzTextField, czyGrafSpojnyTextField, dlugoscSciezkiTextField);
+        actionEvent.setOnActionGenerujButton(button, wymiarXTextField, wymiarYTextField, wagaOdTextField, wagaDoTextField, szansaNaKrawedzTextField, czyGrafSpojnyTextField);
 
         return button;
     }
@@ -276,7 +262,7 @@ public class GUI {
         root.getChildren().add(button);
 
         ActionEventClass actionEvent = new ActionEventClass();
-        actionEvent.setOnActionWczytajButton(button, czyGrafSpojnyTextField, dlugoscSciezkiTextField);
+        actionEvent.setOnActionWczytajButton(button, czyGrafSpojnyTextField);
 
         return button;
     }
