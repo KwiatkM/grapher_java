@@ -103,7 +103,7 @@ public class GUI {
         scrollPane.setPrefHeight(670);
         scrollPane.setLayoutX(340);
         scrollPane.setLayoutY(20);
-        scrollPane.setPannable(true);
+
 
 
         return scrollPane;
@@ -124,7 +124,7 @@ public class GUI {
         root.getChildren().add(button);
 
         ActionEventClass actionEvent = new ActionEventClass();
-        actionEvent.setOnActionGenerujButton(button, wymiarXTextField, wymiarYTextField, wagaOdTextField, wagaDoTextField, szansaNaKrawedzTextField, czyGrafSpojnyTextField, dlugoscSciezkiTextField);
+        actionEvent.setOnActionGenerujButton(button, wymiarXTextField, wymiarYTextField, wagaOdTextField, wagaDoTextField, szansaNaKrawedzTextField, czyGrafSpojnyTextField);
 
         return button;
     }
@@ -275,7 +275,7 @@ public class GUI {
         root.getChildren().add(button);
 
         ActionEventClass actionEvent = new ActionEventClass();
-        actionEvent.setOnActionWczytajButton(button, czyGrafSpojnyTextField, dlugoscSciezkiTextField);
+        actionEvent.setOnActionWczytajButton(button, czyGrafSpojnyTextField);
 
         return button;
     }
