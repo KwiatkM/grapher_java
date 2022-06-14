@@ -137,6 +137,16 @@ public class Dijkstra {
         return odleglosc;
     }
 
+    public double znajdzNajdluzszaOdleglosc(){
+        double max = 0;
+        for(int i = 0; i < iloscWierzcholkow; i++){
+            if(odleglosc[i] != nieskonczonosc && odleglosc[i] > max)
+                max = odleglosc[i];
+
+        }
+        return max;
+    }
+
     public void wypiszTablice(){
         for (int i = 0; i < iloscWierzcholkow; i++){
             System.out.println( "wierzch. " + i + ", odl. " + odleglosc[i] + ", poprz. " + poprzednik[i] + ", odw. " + odwiedzone[i]);
