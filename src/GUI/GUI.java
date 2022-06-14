@@ -3,10 +3,13 @@ package GUI;
 import grapher.Graf;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 public class GUI {
@@ -16,6 +19,8 @@ public class GUI {
     private TextField wagaOdTextField;
     private TextField wagaDoTextField;
     private TextField szansaNaKrawedzTextField;
+
+    private Canvas skalaKolorow;
     static private TextField czyGrafSpojnyTextField;
     static private TextField dlugoscSciezkiTextField;
 
@@ -70,6 +75,7 @@ public class GUI {
         createWymazSciezkiButton(root);
         createUsunKrawedzieButton(root);
         createWyjdzButton(root);
+        createSkalaKolorow(root);
 
         createGenerujButton(root);
     }
@@ -367,7 +373,31 @@ public class GUI {
         return label;
     }
 
-    //SKALA KOLOROW
+    private void createSkalaKolorow(Pane root){
+        int wysokosc = 20;
+        int szerokosc = 260;
+        skalaKolorow = new Canvas(szerokosc,wysokosc);
+        skalaKolorow.setLayoutX(40);
+        skalaKolorow.setLayoutY(530);
+        GraphicsContext gc = skalaKolorow.getGraphicsContext2D();
+
+        for(int i = 0; i < szerokosc;i++){
+            gc.setStroke(kolorDoSkali(i,szerokosc));
+            gc.strokeLine(i,0,i,wysokosc);
+        }
+
+
+
+
+        root.getChildren().add(skalaKolorow);
+    }
+
+    private Color kolorDoSkali (double i, double max){
+        final double BLUE_HUE = Color.BLUE.getHue();
+        final double Red_HUE = Color.RED.getHue();
+        double hue = BLUE_HUE + (Red_HUE - BLUE_HUE) * i/ max ;
+        return Color.hsb(hue, 1.0, 1.0);
+    }
 
     private Button createWyjdzButton(Pane root){
         Button button = new Button("Wyjdz");
