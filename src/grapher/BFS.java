@@ -13,13 +13,11 @@ public class BFS {
         iloscWierzcholkow = graf.getWymiarX() * graf.getWymiarY();
         this.graf = graf;
         odwiedzone = new boolean[iloscWierzcholkow];
-        for (int i = 0; i < iloscWierzcholkow; i++) {
-            odwiedzone[i] = false;
-        }
         kolejka = new ConcurrentLinkedQueue<>();
     }
 
-    private void start(){
+    public void start(){
+        reset();
         kolejka.add(0);
         odwiedzone[0] = true;
         int u;
@@ -54,6 +52,12 @@ public class BFS {
             }
         }
         return spojnosc;
+    }
+
+    private void reset(){
+        for (int i = 0; i < iloscWierzcholkow; i++) {
+            odwiedzone[i] = false;
+        }
     }
 
     public void wypiszTablice(){
