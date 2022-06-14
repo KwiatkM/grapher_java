@@ -17,11 +17,13 @@ import java.io.IOException;
 public class ActionEventClass {
     static Graf graf;
     static CanvasGraf canvas;
+    static BFS bfs;
     static boolean czyWygenerowanyLubWczytanyGraf = false;
     public void setOnActionGenerujButton(Button generujButton, TextField wymiarXTextField, TextField wymiarYTextField, TextField wagaOdTextField, TextField wagaDoTextField, TextField szansaNaKrawedzTextField, TextField czyGrafSpojnyTextField, TextField dlugoscSciezkiTextField){
         generujButton.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
                 graf = new Graf();
+
                 try {
                     if(Integer.parseInt(wymiarXTextField.getText()) <= 0){
                         graf.setWymiarX(100);
@@ -81,15 +83,8 @@ public class ActionEventClass {
                 graf.generujGraf();
                 canvas = GUI.initializeWidokGrafu(graf);             //do siatki grafu
                 czyWygenerowanyLubWczytanyGraf = true;
-                BFS bfs = new BFS(graf);
-                if(bfs.grafSpojny()){
-                    czyGrafSpojnyTextField.setText("Tak");
-                } else{
-                    czyGrafSpojnyTextField.setText("Nie");
-                }
-
-                System.out.println("Wygenerowano graf.");
-                graf.wypiszGraf();
+                bfs = new BFS(graf);
+                wyswietlSpojnoscGrafu(czyGrafSpojnyTextField);
             }
         });
     }
@@ -145,15 +140,12 @@ public class ActionEventClass {
                 if (file != null) {
                     try {
                         graf = new Graf(file.getAbsolutePath());
+                        //bfs.start();
                         //GUI.initializeWidokGrafu();                     //do siatki grafu
+                        canvas = GUI.initializeWidokGrafu(graf);             //do siatki grafu
                         czyWygenerowanyLubWczytanyGraf = true;
-                        BFS bfs = new BFS(graf);
-                        if(bfs.grafSpojny()){
-                            czyGrafSpojnyTextField.setText("Tak");
-                        } else{
-                            czyGrafSpojnyTextField.setText("Nie");
-                        }
-                        System.out.println("Graf zostal wczytany z pliku " + file.getAbsolutePath());
+                        bfs = new BFS(graf);
+                        wyswietlSpojnoscGrafu(czyGrafSpojnyTextField);
                     } catch (FileNotFoundException ex) {
                         throw new RuntimeException(ex);
                     }
@@ -164,6 +156,7 @@ public class ActionEventClass {
     public void setOnActionWymazSciezkiButton(Button wymazSciezkiButton){
         wymazSciezkiButton.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
+            canvas.fullRedraw();
 
             }
         });
@@ -171,7 +164,11 @@ public class ActionEventClass {
     public void setOnActionUsunKrawedzieButton(Button usunKrawedzieButton){
         usunKrawedzieButton.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
-
+            graf.usunSciezke(canvas.getCurrentPath());
+            canvas.fullRedraw();
+            bfs.start();
+            if(bfs.grafSpojny()) GUI.setCzyGrafSpojny("Tak");
+            else GUI.setCzyGrafSpojny("Nie");
             }
         });
     }
@@ -181,5 +178,14 @@ public class ActionEventClass {
                 Platform.exit();
             }
         });
+    }
+
+    private void wyswietlSpojnoscGrafu(TextField czyGrafSpojnyTextField){
+        bfs.start();
+        if(bfs.grafSpojny()){
+            czyGrafSpojnyTextField.setText("Tak");
+        } else{
+            czyGrafSpojnyTextField.setText("Nie");
+        }
     }
 }

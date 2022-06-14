@@ -1,6 +1,7 @@
 package grapher;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
 import java.util.Spliterator;
@@ -88,6 +89,10 @@ public class Graf  {
         Scanner scanner = new Scanner(plik);
         this.wymiarX = scanner.nextInt();
         this.wymiarY = scanner.nextInt();
+
+        double wagaMax = 0;
+        double wagaMin = Double.MAX_VALUE;
+
         scanner.nextLine();
 
         inicjalizajaGrafu();
@@ -98,20 +103,27 @@ public class Graf  {
 
         String tmp;
         for ( int i = 0; i < wymiarY*wymiarX; i++){
-            System.out.println("Wczytuje wierzcholek nr " + (i+1));
+            //System.out.println("Wczytuje wierzcholek nr " + (i+1));
             tmp = scanner.nextLine();
             matcher =pattern.matcher(tmp);
+            double dTmp;
             while(matcher.find()){
                 /*if(Integer.parseInt(matcher.group(1)) == nrIndeksuGora(i)){
                     wierzcholki[nrIndeksuGora(i)].setKrawedz_dol(Double.parseDouble(matcher.group(2)));
                     continue;
                 }*/
                 if(Integer.parseInt(matcher.group(1)) == nrIndeksuPrawo(i)){
-                    wierzcholki[i].setKrawedz_prawo(Double.parseDouble(matcher.group(2)));
+                    dTmp = Double.parseDouble(matcher.group(2));
+                    wierzcholki[i].setKrawedz_prawo(dTmp);
+                    if( dTmp > wagaMax ) wagaMax = dTmp;
+                    if(dTmp < wagaMin) wagaMin = dTmp;
                     continue;
                 }
                 if(Integer.parseInt(matcher.group(1)) == nrIndeksuDol(i)){
-                    wierzcholki[i].setKrawedz_dol(Double.parseDouble(matcher.group(2)));
+                    dTmp = Double.parseDouble(matcher.group(2));
+                    wierzcholki[i].setKrawedz_dol(dTmp);
+                    if( dTmp > wagaMax ) wagaMax = dTmp;
+                    if(dTmp < wagaMin) wagaMin = dTmp;
                     continue;
                 }
                 /*if(Integer.parseInt(matcher.group(1)) == nrIndeksuLewo(i)){
@@ -120,6 +132,8 @@ public class Graf  {
                 }*/
             }
         }
+        wagaOd = wagaMin;
+        wagaDo = wagaMax;
     }
 
     public void generujGraf(){
@@ -160,6 +174,30 @@ public class Graf  {
             fw.write("\n");
         }
         fw.close();
+    }
+
+    public void usunSciezke( ArrayList<Integer> sciezka){
+        for(int i : sciezka){
+            usunKrawedzieWierzcholka(i);
+        }
+    }
+
+    public void usunSciezkeDokladnie(ArrayList<Integer> sciezka){
+        for(int i = 0; i < sciezka.size()-1 ;i++) {
+            if(sciezka.get(i+1) == nrIndeksuGora(sciezka.get(i))){
+                wierzcholki[nrIndeksuGora(sciezka.get(i))].setKrawedz_dol(-1.1);
+            }
+            if(sciezka.get(i+1) == nrIndeksuPrawo(sciezka.get(i))){
+                wierzcholki[sciezka.get(i)].setKrawedz_prawo(-1.1);
+            }
+            if(sciezka.get(i+1) == nrIndeksuDol(sciezka.get(i))){
+                wierzcholki[sciezka.get(i)].setKrawedz_dol(-1.1);
+            }
+            if(sciezka.get(i+1) == nrIndeksuLewo(sciezka.get(i))){
+                wierzcholki[nrIndeksuLewo(sciezka.get(i))].setKrawedz_prawo(-1.1);
+            }
+
+        }
     }
 
     public void wypiszGraf(){

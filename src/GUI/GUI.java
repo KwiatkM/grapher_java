@@ -3,10 +3,13 @@ package GUI;
 import grapher.Graf;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 public class GUI {
@@ -16,8 +19,10 @@ public class GUI {
     private TextField wagaOdTextField;
     private TextField wagaDoTextField;
     private TextField szansaNaKrawedzTextField;
-    private TextField czyGrafSpojnyTextField;
-    private TextField dlugoscSciezkiTextField;
+
+    private Canvas skalaKolorow;
+    static private TextField czyGrafSpojnyTextField;
+    static private TextField dlugoscSciezkiTextField;
 
 
     private static Pane root;
@@ -70,6 +75,7 @@ public class GUI {
         createWymazSciezkiButton(root);
         createUsunKrawedzieButton(root);
         createWyjdzButton(root);
+        createSkalaKolorow(root);
 
         createGenerujButton(root);
     }
@@ -94,6 +100,7 @@ public class GUI {
         scrollPane.setPrefHeight(670);
         scrollPane.setLayoutX(340);
         scrollPane.setLayoutY(20);
+        scrollPane.setPannable(true);
 
 
         return scrollPane;
@@ -135,7 +142,7 @@ public class GUI {
         return label;
     }
     private TextField createWymiarXTextField(Pane root){
-        wymiarXTextField = new TextField();
+        wymiarXTextField = new TextField("20");
         wymiarXTextField.setFont(new Font(12));
         wymiarXTextField.setAlignment(Pos.CENTER);
         wymiarXTextField.setPrefWidth(185);
@@ -159,7 +166,7 @@ public class GUI {
         return label;
     }
     private TextField createWymiarYTextField(Pane root){
-        wymiarYTextField = new TextField();
+        wymiarYTextField = new TextField("20");
         wymiarYTextField.setFont(new Font(12));
         wymiarYTextField.setAlignment(Pos.CENTER);
         wymiarYTextField.setPrefWidth(185);
@@ -183,7 +190,7 @@ public class GUI {
         return label;
     }
     private TextField createWagaOdTextField(Pane root){
-        wagaOdTextField = new TextField();
+        wagaOdTextField = new TextField("0");
         wagaOdTextField.setFont(new Font(12));
         wagaOdTextField.setAlignment(Pos.CENTER);
         wagaOdTextField.setPrefWidth(185);
@@ -208,7 +215,7 @@ public class GUI {
         return label;
     }
     private TextField createWagaDoTextField(Pane root){
-        wagaDoTextField = new TextField();
+        wagaDoTextField = new TextField("10");
         wagaDoTextField.setFont(new Font(12));
         wagaDoTextField.setAlignment(Pos.CENTER);
         wagaDoTextField.setPrefWidth(185);
@@ -232,7 +239,7 @@ public class GUI {
         return label;
     }
     private TextField createSzansaNaKrawedzTextField(Pane root){
-        szansaNaKrawedzTextField = new TextField();
+        szansaNaKrawedzTextField = new TextField("1.0");
         szansaNaKrawedzTextField.setFont(new Font(12));
         szansaNaKrawedzTextField.setAlignment(Pos.CENTER);
         szansaNaKrawedzTextField.setPrefWidth(185);
@@ -366,7 +373,31 @@ public class GUI {
         return label;
     }
 
-    //SKALA KOLOROW
+    private void createSkalaKolorow(Pane root){
+        int wysokosc = 20;
+        int szerokosc = 260;
+        skalaKolorow = new Canvas(szerokosc,wysokosc);
+        skalaKolorow.setLayoutX(40);
+        skalaKolorow.setLayoutY(530);
+        GraphicsContext gc = skalaKolorow.getGraphicsContext2D();
+
+        for(int i = 0; i < szerokosc;i++){
+            gc.setStroke(kolorDoSkali(i,szerokosc));
+            gc.strokeLine(i,0,i,wysokosc);
+        }
+
+
+
+
+        root.getChildren().add(skalaKolorow);
+    }
+
+    private Color kolorDoSkali (double i, double max){
+        final double BLUE_HUE = Color.BLUE.getHue();
+        final double Red_HUE = Color.RED.getHue();
+        double hue = BLUE_HUE + (Red_HUE - BLUE_HUE) * i/ max ;
+        return Color.hsb(hue, 1.0, 1.0);
+    }
 
     private Button createWyjdzButton(Pane root){
         Button button = new Button("Wyjdz");
@@ -382,6 +413,14 @@ public class GUI {
         actionEvent.setOnActionWyjdzButton(button);
 
         return button;
+    }
+
+    static void setCzyGrafSpojny(String txt){
+        czyGrafSpojnyTextField.setText(txt);
+    }
+
+    static void setDlugoscSciezki(double d){
+        dlugoscSciezkiTextField.setText("" + d);
     }
 
     public Scene getGuiScene(){

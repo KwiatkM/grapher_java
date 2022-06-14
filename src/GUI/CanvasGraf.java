@@ -6,6 +6,7 @@ import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public class CanvasGraf {
     private double selectedX;
     private double selectedY;
     private boolean nodeSelected;
+    private int selectedNodeNumber;
     private int mainNodeNumber;
     private double minDist;
     private double maxDist;
@@ -29,6 +31,7 @@ public class CanvasGraf {
     private double canvasSizeY;
     private Color idleNode = Color.GRAY;
     private Color selectedColor = Color.rgb(112,112,112);
+    private Color mainNodeColor = Color.rgb(255, 255, 255);
 
     private double d;
     private double odstep;
@@ -62,12 +65,7 @@ public class CanvasGraf {
         canvas.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                /*
-                if(nodeSelected){
-                    gc.setFill(idleNode);
-                    gc.fillOval(selectedY,selectedX,d,d);
-                    nodeSelected = false;
-                }*/
+
 
                 selectedX = mouseEvent.getX();
                 selectedY = mouseEvent.getY();
@@ -78,21 +76,24 @@ public class CanvasGraf {
                 int tmpIx = (int) tmpx;
                 int tmpIy = (int) tmpy;
 
+
                 double dx = d/(d+odstep);
 
                 // warunek na naciśnięcie na kółko (wierzchołek)
                 if((tmpx - tmpIx < dx) && (tmpy - tmpIy < dx) ){
+                    selectedNodeNumber = tmpIy * graphYsize + tmpIx;
                     selectedX = (tmpIy + 1) * odstep + tmpIy * d;
                     selectedY = (tmpIx + 1) * odstep + tmpIx * d;
                     if(!nodeSelected) {
                         mainNodeNumber = tmpIy * graphYsize + tmpIx;
                         draw(dijkstra);
-                        gc.setFill(Color.rgb(255, 255, 255));
+                        gc.setFill(mainNodeColor);
 
                         gc.fillOval(selectedY, selectedX, d, d);
                         nodeSelected = true;
                     }
                     else {
+                        GUI.setDlugoscSciezki(dijkstra.getOdleglosc()[selectedNodeNumber]);
                         gc.setFill(selectedColor);
                         gc.fillOval(selectedY, selectedX, d, d);
                         drawPath(tmpIy * graphYsize + tmpIx);
@@ -100,9 +101,10 @@ public class CanvasGraf {
                 }
             }
         });
-
         nodeSelected = false;
     }
+
+
 
     private Color getEdgeColor (Graf graf, int nrWierzcholka, boolean right ){
         final double BLUE_HUE = Color.BLUE.getHue();
@@ -276,10 +278,35 @@ public class CanvasGraf {
 
 
 
-    public void redraw(){
+    public void fullRedraw(){
+        nodeSelected = false;
         draw();
     }
 
+    public void redraw(){
+        draw(dijkstra);
+        // pomalowanie głównego wierzchołka spowrotem na odpowiedni kolor
+
+        // współrzędne nr wierzchołka w grafie
+        int wspGrX = (int) mainNodeNumber/graphYsize;;
+        int wspGrY = mainNodeNumber - (wspGrX * graphYsize);
+
+        // współrzędne lewego górnego rogu kwadratu na płutnie dla danego wierzchołka
+        double mainNx = (wspGrY + 1) * odstep + wspGrY * d;
+        double mainNy = (wspGrX + 1) * odstep + wspGrX * d;
+
+        gc.setFill(mainNodeColor);
+        gc.fillOval(mainNx, mainNy, d, d);
+
+    }
+
+    public ArrayList<Integer> getCurrentPath() {
+        return currentPath;
+    }
+
+    public int getSelectedNodeNumber(){
+        return selectedNodeNumber;
+    }
 
     public Canvas getCanvas() {
         return canvas;
