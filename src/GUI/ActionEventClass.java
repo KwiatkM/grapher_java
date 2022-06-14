@@ -16,6 +16,7 @@ import java.io.IOException;
 
 public class ActionEventClass {
     static Graf graf;
+    static CanvasGraf canvas;
     static boolean czyWygenerowanyLubWczytanyGraf = false;
     public void setOnActionGenerujButton(Button generujButton, TextField wymiarXTextField, TextField wymiarYTextField, TextField wagaOdTextField, TextField wagaDoTextField, TextField szansaNaKrawedzTextField, TextField czyGrafSpojnyTextField, TextField dlugoscSciezkiTextField){
         generujButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -78,7 +79,7 @@ public class ActionEventClass {
                 }
 
                 graf.generujGraf();
-                GUI.initializeWidokGrafu();             //do siatki grafu
+                canvas = GUI.initializeWidokGrafu(graf);             //do siatki grafu
                 czyWygenerowanyLubWczytanyGraf = true;
                 BFS bfs = new BFS(graf);
                 if(bfs.grafSpojny()){

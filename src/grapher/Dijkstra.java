@@ -38,6 +38,7 @@ public class Dijkstra {
     }
 
     public void start(int start){
+        reset();
         wierzcholekStartowy = start;
         odleglosc[start] = 0.0;
         kolejkaPriorytetowa.add(start);
@@ -106,6 +107,14 @@ public class Dijkstra {
         }
     }
 
+    private void reset(){
+        for(int i = 0; i < iloscWierzcholkow; i++){
+            odleglosc[i] = nieskonczonosc;
+            odwiedzone[i] = false;
+            poprzednik[i] = Integer.MAX_VALUE;
+        }
+    }
+
 
     // metoda zwraca najkrótszą ścieżkę do wierzchołka "wierzchołekDocelowy" w postaci ArrayList
     public ArrayList<Integer> znajdzNajkrotszaSciezke (int wierzholekDocelowy){
@@ -124,6 +133,19 @@ public class Dijkstra {
         }
     }
 
+    public double[] getOdleglosc() {
+        return odleglosc;
+    }
+
+    public double znajdzNajdluzszaOdleglosc(){
+        double max = 0;
+        for(int i = 0; i < iloscWierzcholkow; i++){
+            if(odleglosc[i] != nieskonczonosc && odleglosc[i] > max)
+                max = odleglosc[i];
+
+        }
+        return max;
+    }
 
     public void wypiszTablice(){
         for (int i = 0; i < iloscWierzcholkow; i++){

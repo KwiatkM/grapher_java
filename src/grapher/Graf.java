@@ -200,6 +200,10 @@ public class Graf  {
         return wierzcholki;
     }
 
+    public Wierzcholek getWierzcholek(int i){
+        return wierzcholki[i];
+    }
+
     public int getWymiarX() {
         return wymiarX;
     }

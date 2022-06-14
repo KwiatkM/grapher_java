@@ -1,5 +1,6 @@
 package GUI;
 
+import grapher.Graf;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -17,6 +18,7 @@ public class GUI {
     private TextField szansaNaKrawedzTextField;
     private TextField czyGrafSpojnyTextField;
     private TextField dlugoscSciezkiTextField;
+
 
     private static Pane root;
 
@@ -72,22 +74,27 @@ public class GUI {
         createGenerujButton(root);
     }
 
-    static void initializeWidokGrafu(){             //do siatki grafu(uruchamiane w ActionEventClass
-        siatkaWierzcholkow = new GridPane();        //po wygenerowaniu lub wczytaniu grafu)
-        initializeSiatkaWierzcholkow();
-        widokGrafu = initializeScrollPane(siatkaWierzcholkow);
+    static CanvasGraf initializeWidokGrafu( Graf graf){             //do siatki grafu(uruchamiane w ActionEventClass
+                                                                     //po wygenerowaniu lub wczytaniu grafu)
+        widokGrafu = initializeScrollPane();
+        double skala = 1.0;
+        if(graf.getWymiarX() > 16|| graf.getWymiarY() > 16) skala = 0.8;
+        if(graf.getWymiarX() > 30|| graf.getWymiarY() > 30) skala = 0.6;
+        if(graf.getWymiarX() > 40|| graf.getWymiarY() > 40) skala = 0.5;
+        if(graf.getWymiarX() > 50|| graf.getWymiarY() > 50) skala = 0.4;
+        CanvasGraf c = new CanvasGraf(graf,skala);
+        widokGrafu.setContent(c.getCanvas());
         root.getChildren().add(widokGrafu);
-        root.getChildren().add(siatkaWierzcholkow);
-
         Main.stage.setScene(guiScene);
+        return c;
     }
-    private static ScrollPane initializeScrollPane(Node node){      //do siatki grafu
+    private static ScrollPane initializeScrollPane(){      //do siatki grafu
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setPrefWidth(590);
         scrollPane.setPrefHeight(670);
         scrollPane.setLayoutX(340);
         scrollPane.setLayoutY(20);
-        //scrollPane.setContent(node);
+
 
         return scrollPane;
     }
