@@ -140,9 +140,11 @@ public class ActionEventClass {
                 if (file != null) {
                     try {
                         graf = new Graf(file.getAbsolutePath());
+                        //bfs.start();
                         //GUI.initializeWidokGrafu();                     //do siatki grafu
                         canvas = GUI.initializeWidokGrafu(graf);             //do siatki grafu
                         czyWygenerowanyLubWczytanyGraf = true;
+                        bfs = new BFS(graf);
                         wyswietlSpojnoscGrafu(czyGrafSpojnyTextField);
                     } catch (FileNotFoundException ex) {
                         throw new RuntimeException(ex);
