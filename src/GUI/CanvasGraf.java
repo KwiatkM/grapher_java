@@ -10,7 +10,7 @@ import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 
-public class CanvasTest {
+public class CanvasGraf {
     private Graf graf;
     private Canvas canvas;
     private double scale;
@@ -37,7 +37,7 @@ public class CanvasTest {
     private Dijkstra dijkstra;
     private ArrayList<Integer> currentPath;
 
-    public CanvasTest(Graf graf, double skala){
+    public CanvasGraf(Graf graf, double skala){
         this.graf = graf;
         minDist = 0;
         maxDist = Math.sqrt(graf.getWymiarX() * graf.getWymiarY()) * graf.getWagaDo()/1.5;
